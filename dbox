@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# mReschke dbox (docker dev box) command helper
+# mReschke 2015-01-12
+
+function mysql_up {
+	docker run -d --name mysql -p 3306:3306 mreschke/mariadb	
+}
+function mysql_console {
+	docker run -it --rm --link mysql:mysql mreschke/mariadb bash -c 'mysql -h $MYSQL_PORT_3306_TCP_ADDR'
+}
+
+function php_up {
+	docker run -d --name php mreschke/phpfpm
+}
+
+function init {
+	# Initialize dbox if not already done
+	if [ ! -d ~/.dbox ]; then
+		echo "Initializing first time dbox environment"
+		git clone https://github.com/mreschke/dbox ~/.dbox
+		ln -s ~/.dbox/dbox /usr/local/bin/
+
+		echo "Initialization complete!"
+		echo
+	fi
+}
+
+function usage {
+	echo "dbox (Docker PHP dev box) 1.0"
+	echo "Copyright (C) 2015 Matthew Reschke"
+	echo "License MIT <mreschke.com/license/mit>"
+	echo "Written by Matthew Reschke <mail@mreschke.com> on 2015-01-12"
+	echo
+	echo "Usage:"
+	echo "  dbox up            bring up all containers (entire dev environment)"
+}
+
+
+if [ "$2" == "" ]; then
+	cmd=$1
+	if [ "$cmd" == "up" ]; then
+		init
+
+		echo "Creating mysql docker container"
+		docker run -d --name mysql -p 3306:3306 -v ~/.dbox/mysql/data:/var/lib/mysql -v ~/.dbox/mysql/etc:/etc/mysql mreschke/mariadb
+	else
+		usage
+	fi
+else
+	container=$1
+	cmd=$2
+	init
+	${container}_${cmd}
+fi
+
