@@ -19,7 +19,7 @@ function init {
 	if [ ! -d ~/.dbox ]; then
 		echo "Initializing first time dbox environment"
 		git clone https://github.com/mreschke/dbox ~/.dbox
-		ln -s ~/.dbox/dbox /usr/local/bin/
+		ln -sf ~/.dbox/dbox /usr/local/bin/
 
 		echo "Initialization complete!"
 		echo
