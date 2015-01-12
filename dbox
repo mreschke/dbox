@@ -21,6 +21,9 @@ function init {
 		git clone https://github.com/mreschke/dbox ~/.dbox
 		ln -sf ~/.dbox/dbox /usr/local/bin/
 
+		echo "Initialize shared data container"
+		docker run --name dbox-data -v ~/.dbox:/data:rw mreschke/data
+
 		echo "Initialization complete!"
 		echo
 	fi
@@ -43,7 +46,7 @@ if [ "$2" == "" ]; then
 		init
 
 		echo "Creating mysql docker container"
-		docker run -d --name mysql -p 3306:3306 -v ~/.dbox/mysql/data:/var/lib/mysql -v ~/.dbox/mysql/etc:/etc/mysql mreschke/mariadb
+		docker run --rm --name mysql -p 3306:3306 --volumes-from dbox-data mreschke/mariadb
 	else
 		usage
 	fi
