@@ -1,11 +1,33 @@
 # Dbox
-Docker based Nginx, PHP, MariaDB and Redis linked container development platform.  Similar to Laravels homestead Vagrant dev box, but built using Docker for blazing fast local development.
+Docker based Nginx, PHP, MariaDB and Redis linked container development platform.
+
+
+# Usage
+
+All containers use local mounted volumes at ~/.dbox so your data is safe and persistent even if you run dbox destroy.
+
+	dbox up
+	dbox down
+	dbox destroy
+
+	dbox mysql console
+	dbox mysql shell
+
+	dbox redis console
+	dbox redis shell
+
+	dbox php shell
+
+	dbox web shell
 
 
 
 # Install
 
 This assumes a fresh linux system with a kernal capable of running Docker like Debian Jessie+ or Ubuntu 14.04+
+
+Linux box does NOT need to have anything, no PHP, no Nginx, no Mysql or redis.  Just docker.io!
+
 
 ## Install Docker
 
@@ -18,4 +40,5 @@ This assumes a fresh linux system with a kernal capable of running Docker like D
 	cd /tmp
 	wget https://raw.githubusercontent.com/mreschke/dbox/master/dbox
 	chmod a+x dbox
-	./dbox up
+	./dbox init
+	rm /tmp/dbox
