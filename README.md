@@ -50,7 +50,8 @@ Now copy or download your code into your local /var/www as usual
 
 # Upgrade
 
-To upgrade all the containers, simply destroy them all, then rebuild.  Your data is safe in ~/.dbox
+To upgrade all the containers, simply destroy them all, pull, then init.  Your data is safe in ~/.dbox
 
 	dbox destroy
+	dbox pull
 	dbox init

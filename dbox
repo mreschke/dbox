@@ -117,6 +117,13 @@ if [ "$2" == "" ]; then
 		down redis ; docker rm redis
 		down mysql ; docker rm mysql
 		docker rm dbox-data
+	
+	elif [ "$cmd" == "pull" ]; then
+		docker pull mreschke/jessie-base
+		docker pull mreschke/mariadb
+		docker pull mreschke/redis
+		docker pull mreschke/phpfpm
+		docker pull mreschke/nginx
 
 	else
 		usage
