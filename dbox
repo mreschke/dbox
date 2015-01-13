@@ -5,40 +5,42 @@
 
 # Data Container
 function data_init {
-	echo "Initialize shared data docker container"
-	docker run --name dbox-data -v ~/.dbox:/data:rw mreschke/data
+	echo "Initialize shared data docker containers"
+	docker run --name mysql-data -v ~/.dbox/mysql:/data mreschke/data
+	docker run --name redis-data -v ~/.dbox/redis:/data mreschke/data
+	docker run --name web-data -v ~/.dbox/web:/data mreschke/data
 }
 
 # MySQL Container
 function mysql_init {
 	echo "Initialize mysql docker container"
-	docker run -d --name mysql -p 3306:3306 --volumes-from dbox-data mreschke/mariadb
+	docker run -d --name mysql -p 3306:3306 --volumes-from mysql-data mreschke/mariadb
 }
 function mysql_console {
-	#docker run -it --rm --link mysql:mysql mreschke/mariadb bash -c 'mysql -h $MYSQL_PORT_3306_TCP_ADDR'
-	docker exec -it mysql mysql -uroot -p
+	docker run -it --rm --link mysql:mysql mreschke/mariadb bash -c 'mysql -uroot -p -h $MYSQL_PORT_3306_TCP_ADDR'
+	#docker exec -it mysql mysql -uroot -p #docker 1.3.0 +
 }
 
 # Redis Container
 function redis_init {
 	echo "Initialize redis docker container"
-	docker run -d --name redis -p 6379:6379 --volumes-from dbox-data mreschke/redis
+	docker run -d --name redis -p 6379:6379 --volumes-from redis-data mreschke/redis
 }
 function redis_console {
-	#docker run -it --rm --link redis:redis mreschke/redis bash -c 'redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
-	docker exec -it redis redis-cli
+	docker run -it --rm --link redis:redis mreschke/redis bash -c 'redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
+	#docker exec -it redis redis-cli #docker 1.3.0 +
 }
 
 # PHP Container
 function php_init {
 	echo "Initialize php docker container"
-	docker run -d --name php mreschke/phpfpm
+	docker run -d --name php --link mysql:mysql --link redis:redis --volumes-from web-data mreschke/phpfpm
 }
 
 # Web Container
 function web_init {
 	echo "Initialize web docker container"
-	docker run -d --name web -p 80:80 -p 443:443 --link mysql:mysql --link redis:redis --link php:php --volumes-from dbox-data mreschke/nginx
+	docker run -d --name web -p 80:80 -p 443:443 --link php:php --volumes-from web-data mreschke/nginx
 }
 
 
@@ -53,8 +55,14 @@ function down {
 }
 function destroy {
 	echo "Destroying $1 docker container"
-	docker stop $1
-	docker rm $1
+	if [ "$1" == "data" ]; then
+		docker rm mysql-data
+		docker rm redis-data
+		docker rm web-data
+	else
+		docker stop $1
+		docker rm $1
+	fi
 }
 function shell {
 	docker exec -it $1 bash
@@ -116,7 +124,9 @@ if [ "$2" == "" ]; then
 		down php ; docker rm php
 		down redis ; docker rm redis
 		down mysql ; docker rm mysql
-		docker rm dbox-data
+		docker rm mysql-data
+		docker rm redis-data
+		docker rm web-data
 	
 	elif [ "$cmd" == "pull" ]; then
 		docker pull mreschke/jessie-base

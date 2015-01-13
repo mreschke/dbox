@@ -37,12 +37,11 @@ Linux box does NOT need to have anything, no PHP, no Nginx, no Mysql or redis.  
 
 Run as your main user account, not root
 
-	cd /tmp
-	wget https://raw.githubusercontent.com/mreschke/dbox/master/dbox
-	chmod a+x dbox
-	./dbox init
-	rm /tmp/dbox
-	sudo ln -s ~/.dbox/www /var/www
+	curl -sS https://raw.githubusercontent.com/mreschke/dbox/master/dbox  | bash -s init
+
+Your local ~/.dbox/web/www folder will be available in the nginx and php containers.  I prefer to use /var/www so on your local box just create a symlink
+
+	sudo ln -s ~/.dbox/web/www /var/www
 
 Now copy or download your code into your local /var/www as usual
 
