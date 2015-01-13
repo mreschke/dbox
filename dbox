@@ -25,7 +25,7 @@ function redis_init {
 	docker run -d --name redis -p 6379:6379 --volumes-from dbox-data mreschke/redis
 }
 function redis_console {
-	#docker run -it --rm --link redis:redis mreschke/mariadb bash -c 'mysql -h $MYSQL_PORT_3306_TCP_ADDR'
+	#docker run -it --rm --link redis:redis mreschke/redis bash -c 'redis-cli -h "$REDIS_PORT_6379_TCP_ADDR" -p "$REDIS_PORT_6379_TCP_PORT"'
 	docker exec -it redis redis-cli
 }
 
@@ -37,6 +37,11 @@ function up {
 function down {
 	echo "Stopping $1 docker container"
 	docker stop $1
+}
+function destroy {
+	echo "Destroying $1 docker container"
+	docker stop $1
+	docker rm $1
 }
 function shell {
 	docker exec -it $1 bash
@@ -60,7 +65,7 @@ function init {
 	echo "Init all containers"
 	data_init
 	mysql_init
-	#redis_init
+	redis_init
 	#php_init
 	#web_init
 
@@ -83,14 +88,14 @@ if [ "$2" == "" ]; then
 	cmd=$1
 	if [ "$cmd" == "up" ]; then
 		up mysql
-		#up redis
+		up redis
 		#up php
 		#up web
 
 	elif [ "$cmd" == "down" ]; then
 		#down web
 		#down php
-		#down redis
+		down redis
 		down mysql
 
 	elif [ "$cmd" == "init" ]; then
@@ -113,6 +118,12 @@ else
 
 	if [ "$cmd" == "shell" ]; then
 		shell $container
+	elif [ "$cmd" == "up" ]; then
+		up $container
+	elif [ "$cmd" == "down" ]; then
+		down $container
+	elif [ "$cmd" == "destroy" ]; then
+		destroy $container
 	else
 		${container}_${cmd}
 	fi
