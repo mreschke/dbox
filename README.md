@@ -35,10 +35,22 @@ Linux box does NOT need to have anything, no PHP, no Nginx, no Mysql or redis.  
 
 ## Install Dbox
 
-	Run as your main user account, not root
+Run as your main user account, not root
 
 	cd /tmp
 	wget https://raw.githubusercontent.com/mreschke/dbox/master/dbox
 	chmod a+x dbox
 	./dbox init
 	rm /tmp/dbox
+	sudo ln -s ~/.dbox/www /var/www
+
+Now copy or download your code into your local /var/www as usual
+
+
+
+# Upgrade
+
+To upgrade all the containers, simply destroy them all, then rebuild.  Your data is safe in ~/.dbox
+
+	dbox destroy
+	dbox init

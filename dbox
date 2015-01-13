@@ -29,6 +29,19 @@ function redis_console {
 	docker exec -it redis redis-cli
 }
 
+# PHP Container
+function php_init {
+	echo "Initialize php docker container"
+	docker run -d --name php mreschke/phpfpm
+}
+
+# Web Container
+function web_init {
+	echo "Initialize web docker container"
+	docker run -d --name web -p 80:80 -p 443:443 --link mysql:mysql --link redis:redis --link php:php --volumes-from dbox-data mreschke/nginx
+}
+
+
 # Common Functions
 function up {
 	echo "Starting $1 docker container"
@@ -47,10 +60,6 @@ function shell {
 	docker exec -it $1 bash
 }
 
-#function php_init {
-#	docker run -d --name php mreschke/phpfpm
-#}
-
 # Initialize dbox (first time use)
 function init {
 	# Initialize dbox if not already done
@@ -66,8 +75,8 @@ function init {
 	data_init
 	mysql_init
 	redis_init
-	#php_init
-	#web_init
+	php_init
+	web_init
 
 	echo "Initialization complete!"
 	echo
@@ -89,12 +98,12 @@ if [ "$2" == "" ]; then
 	if [ "$cmd" == "up" ]; then
 		up mysql
 		up redis
-		#up php
-		#up web
+		up php
+		up web
 
 	elif [ "$cmd" == "down" ]; then
-		#down web
-		#down php
+		down web
+		down php
 		down redis
 		down mysql
 
@@ -103,9 +112,9 @@ if [ "$2" == "" ]; then
 
 	elif [ "$cmd" == "destroy" ]; then
 		echo "Destroying all containers, your data is safe at ~/.dbox"
-		#down web ; docker rm web
-		#down php ; docker rm php
-		#down redis ; docker rm redis
+		down web ; docker rm web
+		down php ; docker rm php
+		down redis ; docker rm redis
 		down mysql ; docker rm mysql
 		docker rm dbox-data
 
