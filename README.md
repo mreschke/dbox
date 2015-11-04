@@ -40,7 +40,7 @@ I prefer to always work from `/var/www` (old habits), so I simply symlink on my 
 
 	sudo ln -s ~/.dbox/web/www /var
 
-Both the `php` and the `web` (nginx) containers can see the `web/www` folder, and they both have the `/var/www` symlink already in place.
+Both the `php` and the `web` (nginx) containers can see the localhost shared `~/.dbox/web/www` folder which maps into the containers `/data/www` folder.  Both containers also have the `/var/www` symlink already in place.
 
 
 ## Upgrade
