@@ -65,7 +65,7 @@ function destroy {
 	fi
 }
 function shell {
-	docker exec -it $1 bash -c 'su - toor'
+	docker exec -it $1 bash
 }
 
 # Initialize dbox (first time use)

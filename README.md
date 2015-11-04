@@ -36,12 +36,13 @@ This should put you in the PHP container as the toor user (not root).  This cont
 Now pull in a fresh laravel
 
 	composer self-update
+	su - toor
 	cd /var/www/
 	composer create-project laravel/laravel --prefer-dist
 
 Now in a new terminal (or exit the PHP container) log into the nginx (web) container and add a new nginx site.  Note the web container also has the symlink into /var/www
 
-	dbox php web
+	dbox web shell
 	nginx-new-site laravel.app /var/www/laravel/public
 
 Back at your localhost, edit your hosts file and add
@@ -64,12 +65,15 @@ Linux box does NOT need to have anything, no PHP, no Nginx, no Mysql or redis.  
 
 ## Install Docker
 
-	apt-get install -y docker.io
+	See https://docs.docker.com/engine/installation/
 
 ## Install Dbox
 
 Run as your main user account, not root
 
+	cd ~
+	mkdir .dbox
+	cd .dbox
 	curl -sS https://raw.githubusercontent.com/mreschke/dbox/master/dbox  | bash -s init
 
 Your local ~/.dbox/web/www folder will be available in the nginx and php containers.  I prefer to use /var/www so on your local box just create a symlink
