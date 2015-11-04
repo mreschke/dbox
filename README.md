@@ -8,7 +8,7 @@ This lets you have a nice web development set of machines.
 * One MariaDB (mysql) container for ALL your mysql databases
 * One Redis container for ALL your redis database needs
 * One PHP-FPM container for all your php needs (composer, laravel, symfony...)
-* One Nginx container that can host ALL your [PHP] websites, nginx uses the PHP-FPM container
+* One Nginx container that can host ALL your [PHP] websites.
 
 With these 4 containers, you can run unlimited number of nginx sites, which is really great for a development box.
 
