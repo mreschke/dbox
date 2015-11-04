@@ -13,7 +13,7 @@ This lets you have a nice web development set of machines.
 With these 4 containers, you can run unlimited number of nginx sites, which is really great for a development box.
 
 
-This is a super quick easy setup.  Install docker, one line dbox installer, few lines to install laravel and done.
+This is a super quick easy setup.  Install docker, one line dbox installer, few lines to install laravel or whataver else and your up and running.  Dbox is a simple and single bash file, nothing to it.
 
 
 
