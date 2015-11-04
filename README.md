@@ -56,10 +56,10 @@ Remember, your data (code, databases) are perfectly save inside your local ~/.db
 
 # Usage - Basic
 
-Remember, all containers use local mounted volumes at ~/.dbox so your data is safe and persistent even if you run dbox destroy.
+Remember, all containers use local mounted volumes at `~/.dbox` so your data is safe and persistent even if you run dbox destroy.
 
 During the install above, dbox is initialized and already running (all 4 containers running).
-You can use basic docker commands as usual like `docker ps -a` or `docker images -a` as needed, but use dbox to start/stop/destroy them my containers.
+You can use basic docker commands as usual like `docker ps -a` or `docker images -a` as needed, but be sure to use `dbox` to start/stop/destroy my containers.
 
 To stop all containers (but not destroy them), just run `dbox down`.  To start them back up just run `dbox up`.  Remember your data is persistent in ~/.dbox.
 
