@@ -71,10 +71,7 @@ Linux box does NOT need to have anything, no PHP, no Nginx, no Mysql or redis.  
 
 Run as your main user account, not root
 
-	cd ~
-	mkdir .dbox
-	cd .dbox
-	curl -sS https://raw.githubusercontent.com/mreschke/dbox/master/dbox  | bash -s init
+	curl -sS https://raw.githubusercontent.com/mreschke/dbox/master/dbox | bash -s init
 
 Your local ~/.dbox/web/www folder will be available in the nginx and php containers.  I prefer to use /var/www so on your local box just create a symlink
 
