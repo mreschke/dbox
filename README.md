@@ -10,7 +10,7 @@ This lets you have a nice web development set of machines.
 * One PHP-FPM container for all your php needs (composer, laravel, symfony...)
 * One Nginx container that can host ALL your [PHP] websites.
 
-With these 4 containers, you can run unlimited number of nginx sites, which is really great for a development box.
+With these 4 containers, you can run unlimited number of nginx sites, which is really great for an instant and consistent docker based development setup.
 
 
 This is a super quick easy setup.  Install docker, one line dbox installer, few lines to install laravel or whataver else and your up and running.  Dbox is a simple and single bash file, nothing to it.
