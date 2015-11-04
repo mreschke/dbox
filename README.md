@@ -23,9 +23,9 @@ Install dbox as your main user, NOT root:
 
 	curl -sS https://raw.githubusercontent.com/mreschke/dbox/master/dbox | bash -s init
 
-This will create a ~/.dbox folder and `git clone` this dbox repo into it and run `dbox init` which will pull in my docker containers and start them up.
+This will create a `~/.dbox` folder and `git clone` this dbox repo into it and run `dbox init` which will pull in my docker containers and start them up.
 
-Each container will store its persistent data in its own folder in ~/.dbox like
+Each container will store its persistent data in its own folder in `~/.dbox` like
 
 	~/.dbox/mysql
 	~/.dbox/redis
@@ -125,7 +125,7 @@ Now visit http://laravel.app in your local browser
 
 For laravel configuration, the linked database hostname is `mysql`, user is `root`, password is `techie`. The linked redis server hostname is 'redis'.
 
-Super quick, easy Laravel.  And, uh 1000x faster than homestead because no virtualbox (unless your dumb enough to run docker on a mac...boo...love macs...but dockers for linux)
+Super quick, easy Laravel.  And, uh 1000x faster than homestead because no virtualbox (unless your dumb enough to run docker on a mac, boo. Nah, love macs but dockers for linux else run zones or jails)
 
 
 
