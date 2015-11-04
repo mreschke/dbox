@@ -125,7 +125,7 @@ Now visit http://laravel.app in your local browser
 
 For laravel configuration, the linked database hostname is `mysql`, user is `root`, password is `techie`. The linked redis server hostname is 'redis'.
 
-Super quick, easy Laravel.  And, uh 1000x faster than homestead because no virtualbox (unless your dumb enough to run docker on a mac, boo. Nah, love macs but dockers for linux else run zones or jails)
+Super quick, easy Laravel.  And, uh, 100x faster than homestead because no virtualization (unless your dumb enough to run docker on a mac, boo...nah, love macs but dockers for linux else run zones or jails)
 
 
 
