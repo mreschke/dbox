@@ -2,7 +2,8 @@
 
 Docker based Nginx, PHP, MariaDB and Redis linked container development platform.
 
-This is a nicer and more dedicated script than using docker-compose.  This lets you have a nice web development set of machines.
+This is a nicer and more dedicated script than using your own docker-compose.
+This lets you have a nice web development set of machines.
 
 * One MariaDB (mysql) container for ALL your mysql databases
 * One Redis container for ALL your redis database needs
@@ -10,6 +11,10 @@ This is a nicer and more dedicated script than using docker-compose.  This lets 
 * One Nginx container that can host ALL your [PHP] websites, nginx uses the PHP-FPM container
 
 With these 4 containers, you can run unlimited number of nginx sites, which is really great for a development box.
+
+
+This is a super quick easy setup.  Install docker, one line dbox installer, few lines to install laravel and done.
+
 
 
 
