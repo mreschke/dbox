@@ -36,7 +36,7 @@ Each container will store its persistent data in its own folder in `~/.dbox` lik
 	~/.dbox/redis
 	~/.dbox/web
 
-I prefer to always work from `/var/www` (old habbits), so I simply symlink on my localhost, but up to you...
+I prefer to always work from `/var/www` (old habits), so I simply symlink on my localhost, but up to you...
 
 	sudo ln -s ~/.dbox/web/www /var
 
